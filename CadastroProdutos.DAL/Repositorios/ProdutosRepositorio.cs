@@ -48,5 +48,19 @@ namespace CadastroProdutos.DAL.Repositorios
 
         }
 
+        public IQueryable<Produtos> FiltrarProdutos(string nomeProduto)
+        {
+            try
+            {
+                var entity = _contexto.Produtos.Include(u => u.usuario).Where(p => p.nomedoProduto.Contains(nomeProduto));
+
+                return entity;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

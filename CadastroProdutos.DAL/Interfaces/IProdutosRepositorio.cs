@@ -13,5 +13,9 @@ namespace CadastroProdutos.DAL.Interfaces
         new IQueryable<Produtos> PegarTodos();
 
         new Task<Produtos> PegarPeloId(int id );
+
+        IQueryable<Produtos> FiltrarProdutos(string nomeProduto);
+
+
     }
 }

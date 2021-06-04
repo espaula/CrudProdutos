@@ -108,5 +108,12 @@ namespace CadastroProdutos.API.Controllers
             });
         }
 
+
+        [HttpGet("FiltrarProdutos/{nomedoProduto}")]
+        public async Task<ActionResult<IEnumerable<Produtos>>> FiltrarProdutos( string nomeProduto)
+        {
+            return await _produtosRepositorio.FiltrarProdutos(nomeProduto).ToListAsync(); ;
+        }
+
     }
 }

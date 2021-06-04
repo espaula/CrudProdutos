@@ -32,24 +32,27 @@ namespace CadastroProdutos.API.Controllers
             return await _context.Produtos.Include(c => c.usuario).ToListAsync();
         }
 
+
+
+        public async Task<ActionResult<Produtos>> GetProdutos(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var produto = await _context.Produtos
+                .Include(c => c.usuario)
+                .FirstOrDefaultAsync(m => m.produtoId == id);
+            if (produto == null)
+            {
+                return NotFound();
+            }
+
+            return produto;
+        }
+
      
-
-        // GET: Produtos/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var produtos = await _context.Produtos.Include(p => p.usuario).FirstOrDefaultAsync(m => m.produtoId == id);
-        //    if (produtos == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(produtos);
-        //}
 
         // GET: Produtos/Create
         //public IActionResult Create()
@@ -61,20 +64,23 @@ namespace CadastroProdutos.API.Controllers
         //// POST: Produtos/Create
         //// To protect from overposting attacks, enable the specific properties you want to bind to.
         //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
+        [HttpPost]
         //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("produtoId,nomedoProduto,valordeVenda,imagem,usuarioId")] Produtos produtos)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(produtos);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["usuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", produtos.usuarioId);
-        //    return View(produtos);
-        //}
+        public async Task<ActionResult<Produtos>> PostProduto(Produtos produtos)
+        {
+            //if (ModelState.IsValid)
+            // {
 
+            produtos.usuarioId = "1";
+            _context.Add(produtos);
+            await _context.SaveChangesAsync();
+            //  return RedirectToAction(nameof(Index));
+            // }
+            //ViewData["TipoId"] = new SelectList(_context.tipos, "TipoId", "nome", categoria.TipoId);
+            //return View(categoria);
+
+            return CreatedAtAction("GetProdutos", new { id = produtos.produtoId }, produtos);
+        }
         //// GET: Produtos/Edit/5
         //public async Task<IActionResult> Edit(int? id)
         //{

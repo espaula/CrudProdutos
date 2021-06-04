@@ -1,5 +1,7 @@
 using CadastroProdutos.BLL.Models;
 using CadastroProdutos.DAL;
+using CadastroProdutos.DAL.Interfaces;
+using CadastroProdutos.DAL.Repositorios;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +38,7 @@ namespace CadastroProdutos.API
 
             services.AddIdentity<Usuario, Funcao>().AddEntityFrameworkStores<Contexto>();
 
+            services.AddScoped<IProdutosRepositorio, ProdutosRepositorio>();
 
             services.AddCors();
 

@@ -14,7 +14,7 @@ namespace CadastroProdutos.API.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class ProdutosController : ControllerBase
+    public class ProdutosController : Controller
     {
         private readonly IProdutosRepositorio _produtosRepositorio;
 

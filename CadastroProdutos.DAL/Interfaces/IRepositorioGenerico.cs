@@ -20,5 +20,6 @@ namespace CadastroProdutos.DAL.Interfaces
 
         Task Excluir(int id);
         Task Excluir(string id);
+        Task Excluir(TEntity entity);
     }
 }

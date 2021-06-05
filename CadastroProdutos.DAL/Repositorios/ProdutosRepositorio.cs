@@ -52,7 +52,8 @@ namespace CadastroProdutos.DAL.Repositorios
         {
             try
             {
-                var entity = _contexto.Produtos.Include(u => u.usuario).Where(p => p.nomedoProduto.Contains(nomeProduto));
+
+                var entity = _contexto.Produtos.Where(f => f.nomedoProduto.Contains(nomeProduto));
 
                 return entity;
             }
@@ -64,3 +65,4 @@ namespace CadastroProdutos.DAL.Repositorios
         }
     }
 }
+ 

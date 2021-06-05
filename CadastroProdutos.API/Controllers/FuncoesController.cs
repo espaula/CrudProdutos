@@ -119,6 +119,13 @@ namespace CadastroProdutos.API.Controllers
                 mensagem = $"Produto { funcao.Name} excluido com sucesso"
             });
         }
+        [HttpGet("FiltrarFuncoes/{nomeFuncao}")]
+        public async Task<ActionResult<IEnumerable<Funcao>>> FiltrarFuncoes(string nomeFuncao)
+        {
+
+            return await _funcoesRepositorio.FiltrarFuncoes(nomeFuncao).ToListAsync();
+
+        }
 
     }
 }

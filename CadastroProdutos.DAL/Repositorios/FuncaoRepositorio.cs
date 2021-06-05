@@ -52,5 +52,20 @@ namespace CadastroProdutos.DAL.Repositorios
                 throw ex;
             }
         }
+
+        public IQueryable<Funcao> FiltrarFuncoes(string nomeFuncao)
+        {
+            try
+            {
+                var entity = _contexto.Funcoes.Where(f => f.Name.Contains(nomeFuncao));
+
+                return entity;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

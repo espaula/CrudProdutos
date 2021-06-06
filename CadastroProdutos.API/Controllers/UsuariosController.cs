@@ -9,6 +9,9 @@ using CadastroProdutos.BLL.Models;
 using CadastroProdutos.DAL;
 using CadastroProdutos.DAL.Interfaces;
 using System.IO;
+using CadastroProdutos.API.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using CadastroProdutos.API.Services;
 
 namespace CadastroProdutos.API.Controllers
 {
@@ -64,7 +67,90 @@ namespace CadastroProdutos.API.Controllers
             });
         }
 
+        [HttpPost("RegistrarUsuario")]
+        public async Task<ActionResult> RegistrarUsuario(RegistroViewModel model)
+        {
 
+            if (ModelState.IsValid)
+            {
+
+                IdentityResult usuarioCriado;
+                string funcaoUsuario;
+
+                Usuario usuario = new Usuario
+                {
+                    UserName = model.NomeUsuario,
+                    PasswordHash = model.Senha,
+                    //CPF = model.CPF,
+                    profissao = model.Profissao,
+                    foto = model.Foto,
+                    NormalizedUserName = model.NomeUsuario.ToUpper()
+                    
+                    //  Email = model.Email,
+                };
+
+                if(await _usuarioRepositorio.PegarQuantidadeUsuariosRegistrados() > 0)
+                {
+                    funcaoUsuario = "Usuario";
+                }
+                else
+                {
+                    funcaoUsuario = "Administrador";
+                }
+
+                usuarioCriado = await _usuarioRepositorio.CriarUsuario(usuario, model.Senha);
+
+                if (usuarioCriado.Succeeded)
+                {
+                    await _usuarioRepositorio.IncluirUsuarioEmFuncao(usuario, funcaoUsuario);
+                    await _usuarioRepositorio.LogarUsuario(usuario, false);
+
+                    return Ok(new
+                    {
+                        usuarioId = usuario.Id,
+                        loginUsuario = usuario.login
+                    });
+                }
+                else
+                {
+                   return BadRequest(model);
+                }
+            }
+            else
+            {
+               return BadRequest(model);
+            }
+        }
+
+        [HttpPost("LogarUsuario")]
+        public async Task<ActionResult> LogarUsuario(LoginViewModel model)
+        {
+            if (model == null)
+                return NotFound("Usuário e / ou senhas inválidos");
+
+
+            AutenticaSMSerevice autenticaSMSerevice = new AutenticaSMSerevice(_usuarioRepositorio);
+            RetornoLogarUsuario retornousuario =  await autenticaSMSerevice.LogarUsuario(model);
+
+
+            if (retornousuario.usuario != null)
+            {
+                await _usuarioRepositorio.LogarUsuario(retornousuario.usuario, false);
+
+                return Ok(new
+                {
+                    loginUsuarioLogado = retornousuario.usuario.login,
+                    usuarioId = retornousuario.usuario.Id
+
+                });
+            }
+            else
+            {
+                return BadRequest(retornousuario.erro);
+
+            }
+
+        }
 
     }
 }

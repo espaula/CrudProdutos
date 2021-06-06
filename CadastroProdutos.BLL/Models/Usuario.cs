@@ -8,8 +8,9 @@ namespace CadastroProdutos.BLL.Models
 {
     public class Usuario: IdentityUser<string>
     {
-        public string CPF { get; set; }
+      //  public string CPF { get; set; }
         public string profissao { get; set; }
+        public string login { get; set; }
         public byte [] foto { get; set; }
 
         public virtual ICollection<Produtos> produtos { get; set; }

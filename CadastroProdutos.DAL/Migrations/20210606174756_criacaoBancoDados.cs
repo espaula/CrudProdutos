@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CadastroProdutos.DAL.Migrations
 {
-    public partial class CriacaoBancoDAdos : Migration
+    public partial class criacaoBancoDados : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,8 +27,8 @@ namespace CadastroProdutos.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CPF = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     profissao = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    login = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     foto = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -181,12 +181,12 @@ namespace CadastroProdutos.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Funcoes",
                 columns: new[] { "Id", "ConcurrencyStamp", "Descricao", "Name", "NormalizedName" },
-                values: new object[] { "1fde77fb-d30c-475e-b521-10770cf9486d", "11ae7e83-57e1-4de0-9f6f-e096b86c840d", "Admin do sistema", "Administrador", "ADMINISTRADOR" });
+                values: new object[] { "05c9cd65-27c0-44a5-948b-c789e17fe296", "c53219cd-5aab-48c1-aa96-8645e9338cb1", "Admin do sistema", "Administrador", "ADMINISTRADOR" });
 
             migrationBuilder.InsertData(
                 table: "Funcoes",
                 columns: new[] { "Id", "ConcurrencyStamp", "Descricao", "Name", "NormalizedName" },
-                values: new object[] { "702c77cb-9c8d-4add-a9af-9ccec8523199", "e203d66c-c460-4e71-9912-c70f7686ce88", "user do sistema", "usuario", "USUARIO" });
+                values: new object[] { "913a2919-7074-4ba1-bbd8-a93e54e7a8d9", "3f027317-14fc-48f0-9a9f-2825ba5cc68b", "user do sistema", "usuario", "USUARIO" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -224,12 +224,6 @@ namespace CadastroProdutos.DAL.Migrations
                 name: "EmailIndex",
                 table: "Usuarios",
                 column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_CPF",
-                table: "Usuarios",
-                column: "CPF",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",

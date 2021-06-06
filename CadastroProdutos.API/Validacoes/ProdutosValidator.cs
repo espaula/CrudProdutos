@@ -26,9 +26,9 @@ namespace CadastroProdutos.API.Controllers.Validacoes
 
             RuleFor(x => x.valordeVenda)
                 .NotNull()
-                .WithMessage("Max. number of team members is required")
+                .WithMessage("Preencha o valor da venda")
                 .GreaterThan(0)
-                .WithMessage("Max. number of team members must be greater than 0");
+                .WithMessage("valor da venda precisa ser maior que 0");
         }
     }
 }

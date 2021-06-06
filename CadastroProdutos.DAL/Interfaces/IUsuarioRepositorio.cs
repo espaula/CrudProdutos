@@ -18,5 +18,7 @@ namespace CadastroProdutos.DAL.Interfaces
 
 
         Task LogarUsuario(Usuario usuario, bool lembrar);
+
+        Task<Usuario> VerificaSeExiste(string login);
     }
 }

@@ -1,4 +1,5 @@
 using CadastroProdutos.API.Controllers.Validacoes;
+using CadastroProdutos.API.Extensions;
 using CadastroProdutos.BLL;
 using CadastroProdutos.BLL.Models;
 using CadastroProdutos.DAL;
@@ -33,6 +34,8 @@ namespace CadastroProdutos.API
             services.AddDbContext<Contexto>(opcoes => opcoes.UseSqlServer(Configuration.GetConnectionString("ConexaoDB")));
 
             services.AddIdentity<Usuario, Funcao>().AddEntityFrameworkStores<Contexto>();
+
+            services.ConfigurarSenhaUsuario();
 
             services.AddScoped<IProdutosRepositorio, ProdutosRepositorio>();
             services.AddScoped<IFuncaoRepositorio, FuncaoRepositorio>();
@@ -99,7 +102,7 @@ namespace CadastroProdutos.API
                 if (env.IsDevelopment())
                 {
 
-                    spa.UseProxyToSpaDevelopmentServer($"http://localhost:4200/");
+                    spa.UseProxyToSpaDevelopmentServer($"http://localhost:4200");
                 }
             
             });

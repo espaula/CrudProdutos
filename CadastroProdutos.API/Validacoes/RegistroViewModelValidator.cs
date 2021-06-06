@@ -15,7 +15,7 @@ namespace CadastroProdutos.API.Validacoes
             RuleFor(p => p.NomeUsuario)
               .NotNull().WithMessage("Preencha o nome do usuario")
               .NotEmpty().WithMessage("Preencha o nome do usuario")
-              .MinimumLength(1).WithMessage("Use mais caracteres no nome do usuario")
+              .MinimumLength(6).WithMessage("Use mais caracteres no nome do usuario")
               .MaximumLength(50).WithMessage("Use menos caracteres no nome do usuario");
 
             RuleFor(p => p.CPF)

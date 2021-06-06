@@ -76,7 +76,7 @@ namespace CadastroProdutos.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                produtos.usuarioId = "1";
+                produtos.usuarioId = "4e63ce87-133c-4d19-8538-bff4eb8a823d";
                 await _produtosRepositorio.Inserir(produtos);
                 return Ok(new
                 {

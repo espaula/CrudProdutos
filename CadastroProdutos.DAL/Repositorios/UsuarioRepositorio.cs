@@ -52,6 +52,8 @@ namespace CadastroProdutos.DAL.Repositorios
         }
 
 
+       
+
         public async Task LogarUsuario(Usuario usuario, bool lembrar)
         {
             try
@@ -78,5 +80,20 @@ namespace CadastroProdutos.DAL.Repositorios
             }
         }
 
+
+        public Task<Usuario> VerificaSeExiste(string login)
+        {
+            try
+            {
+                var entity = _contexto.Usuarios.FirstOrDefaultAsync(u => u.login == login);
+
+                return entity;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

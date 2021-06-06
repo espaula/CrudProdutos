@@ -35,7 +35,7 @@ namespace CadastroProdutos.API.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<Funcao>> GetFuncoes(int id)
+        public async Task<ActionResult<Funcao>> GetFuncoes(string id)
         {
             var funcao = await _funcoesRepositorio.PegarPeloId(id);
           
@@ -61,8 +61,10 @@ namespace CadastroProdutos.API.Controllers
                 Funcao funcao = new Funcao
                 {
                     Id = funcoes.Id,
-                    Name = funcoes.Nome,
-                    Descricao = funcoes.Descricao
+                    Name = funcoes.Name,
+                    Descricao = funcoes.Descricao,
+                    NormalizedName = funcoes.Name.ToUpper()
+
 
                 };
 
@@ -85,14 +87,19 @@ namespace CadastroProdutos.API.Controllers
 
                 Funcao funcao = new Funcao
                 {
-                    Name = funcoes.Nome,
-                    Descricao = funcoes.Descricao
+                    Name = funcoes.Name,
+                    Descricao = funcoes.Descricao,
+                   // Id = Guid.NewGuid().ToString(),
+                    NormalizedName = funcoes.Name.ToUpper()
+
+                   
+
                 };
 
                 await _funcoesRepositorio.AdicionarFuncao(funcao);
                 return Ok(new
                 {
-                    mensagem = $"Funcao { funcoes.Nome} adicionada com sucesso"
+                    mensagem = $"Funcao { funcoes.Name} adicionada com sucesso"
                 });
             }
 
@@ -116,7 +123,7 @@ namespace CadastroProdutos.API.Controllers
 
             return Ok(new
             {
-                mensagem = $"Produto { funcao.Name} excluido com sucesso"
+                mensagem = $"Funcão { funcao.Name} excluido com sucesso"
             });
         }
         [HttpGet("FiltrarFuncoes/{nomeFuncao}")]

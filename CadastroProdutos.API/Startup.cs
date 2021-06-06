@@ -36,6 +36,7 @@ namespace CadastroProdutos.API
 
             services.AddScoped<IProdutosRepositorio, ProdutosRepositorio>();
             services.AddScoped<IFuncaoRepositorio, FuncaoRepositorio>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             services.AddCors();
 

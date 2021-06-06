@@ -67,6 +67,19 @@ namespace CadastroProdutos.DAL.Repositorios
             }
         }
 
+        public async Task<IList<string>> PegarFuncoesUsuarios(Usuario usuario)
+        {
+            try
+            {
+                return await _gerenciadorUsuarios.GetRolesAsync(usuario);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<int> PegarQuantidadeUsuariosRegistrados()
         {
             try

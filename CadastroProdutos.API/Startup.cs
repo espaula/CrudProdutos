@@ -7,6 +7,7 @@ using CadastroProdutos.DAL.Interfaces;
 using CadastroProdutos.DAL.Repositorios;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CadastroProdutos.API
 {
@@ -48,12 +51,32 @@ namespace CadastroProdutos.API
                 diretorio.RootPath = "CadastroProdutos-UI";
             
             });
-          
+
+            var key = Encoding.ASCII.GetBytes(Settings.ChaveSecreta);
+
+
+            services.AddAuthentication(opcoes =>
+            {
+                opcoes.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opcoes.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opcoes =>
+            {
+                opcoes.RequireHttpsMetadata = false;
+                opcoes.SaveToken = true;
+                opcoes.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
             services.AddControllers()
-              .AddFluentValidation(x =>
-              {
-                  x.RegisterValidatorsFromAssembly(typeof(Startup).Assembly);
-              })
+            .AddFluentValidation(x =>
+            {
+                x.RegisterValidatorsFromAssembly(typeof(Startup).Assembly);
+            })
            .AddJsonOptions(opcoes =>
             {
                 opcoes.JsonSerializerOptions.IgnoreNullValues = true;
@@ -83,6 +106,8 @@ namespace CadastroProdutos.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

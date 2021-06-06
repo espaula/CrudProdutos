@@ -71,6 +71,8 @@ namespace CadastroProdutos.API.Services
                         if (usuarioCriado.Succeeded)
                         {
                             await _usuarioRepositorio.IncluirUsuarioEmFuncao(usuarioNovo, funcaoUsuario);
+
+                            //var token = TokenService.GerarToken(usuarioNovo, funcaoUsuario);
                             await _usuarioRepositorio.LogarUsuario(usuarioNovo, false);
                             retornoLogarUsuario.usuario = usuarioNovo;
                         }

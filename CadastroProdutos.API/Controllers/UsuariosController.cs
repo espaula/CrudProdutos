@@ -135,12 +135,16 @@ namespace CadastroProdutos.API.Controllers
 
             if (retornousuario.usuario != null)
             {
+                var funcaoUsuario = await _usuarioRepositorio.PegarFuncoesUsuarios(retornousuario.usuario);
+                var token = TokenService.GerarToken(retornousuario.usuario, funcaoUsuario.First());
+                
                 await _usuarioRepositorio.LogarUsuario(retornousuario.usuario, false);
 
                 return Ok(new
                 {
                     loginUsuarioLogado = retornousuario.usuario.login,
-                    usuarioId = retornousuario.usuario.Id
+                    usuarioId = retornousuario.usuario.Id,
+                    tokenUsuarioLogado = token
 
                 });
             }

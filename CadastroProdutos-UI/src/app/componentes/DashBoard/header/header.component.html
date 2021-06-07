@@ -1,0 +1,17 @@
+
+<mat-toolbar color='primary'>
+<span>Crud Produtos</span>
+<span class='spacer'></span>
+
+<div *ngIf="loginUsuarioLogado" fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="end center" >
+
+    <div>
+        Olá, {{loginUsuarioLogado}}
+    </div>
+    <div>
+            
+           
+            <button type="button" mat-raised-button (click)="EfetuarLogout()">  <mat-icon>power_settings_new</mat-icon>  Logout </button>
+    </div>
+</div>
+</mat-toolbar>

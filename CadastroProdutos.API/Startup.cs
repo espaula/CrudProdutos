@@ -1,20 +1,22 @@
+using CadastroProdutos.API.Controllers.Validacoes;
+using CadastroProdutos.API.Extensions;
+using CadastroProdutos.BLL;
 using CadastroProdutos.BLL.Models;
 using CadastroProdutos.DAL;
+using CadastroProdutos.DAL.Interfaces;
+using CadastroProdutos.DAL.Repositorios;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CadastroProdutos.API
 {
@@ -36,6 +38,11 @@ namespace CadastroProdutos.API
 
             services.AddIdentity<Usuario, Funcao>().AddEntityFrameworkStores<Contexto>();
 
+            services.ConfigurarSenhaUsuario();
+
+            services.AddScoped<IProdutosRepositorio, ProdutosRepositorio>();
+            services.AddScoped<IFuncaoRepositorio, FuncaoRepositorio>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             services.AddCors();
 
@@ -44,7 +51,33 @@ namespace CadastroProdutos.API
                 diretorio.RootPath = "CadastroProdutos-UI";
             
             });
-            services.AddControllers().AddJsonOptions(opcoes =>
+
+            var key = Encoding.ASCII.GetBytes(Settings.ChaveSecreta);
+
+
+            services.AddAuthentication(opcoes =>
+            {
+                opcoes.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opcoes.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opcoes =>
+            {
+                opcoes.RequireHttpsMetadata = false;
+                opcoes.SaveToken = true;
+                opcoes.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
+            services.AddControllers()
+            .AddFluentValidation(x =>
+            {
+                x.RegisterValidatorsFromAssembly(typeof(Startup).Assembly);
+            })
+           .AddJsonOptions(opcoes =>
             {
                 opcoes.JsonSerializerOptions.IgnoreNullValues = true;
             })
@@ -74,6 +107,8 @@ namespace CadastroProdutos.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
 
@@ -92,7 +127,7 @@ namespace CadastroProdutos.API
                 if (env.IsDevelopment())
                 {
 
-                    spa.UseProxyToSpaDevelopmentServer($"http://localhost:4200/");
+                    spa.UseProxyToSpaDevelopmentServer($"http://localhost:4200");
                 }
             
             });

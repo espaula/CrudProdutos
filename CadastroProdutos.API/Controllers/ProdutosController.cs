@@ -7,152 +7,116 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CadastroProdutos.BLL;
 using CadastroProdutos.DAL;
+using CadastroProdutos.DAL.Interfaces;
 
 namespace CadastroProdutos.API.Controllers
 {
+
+    [Route("api/[controller]")]
+    [ApiController]
     public class ProdutosController : Controller
     {
-        private readonly Contexto _context;
+        private readonly IProdutosRepositorio _produtosRepositorio;
 
-        public ProdutosController(Contexto context)
+        public ProdutosController(IProdutosRepositorio produtosRepositorio)
         {
-            _context = context;
+            _produtosRepositorio = produtosRepositorio;
         }
 
         // GET: Produtos
-        public async Task<IActionResult> Index()
+       
+        //[HttpGet]
+        [HttpGet("PegarTodos/{usuarioID}")]
+        public async Task<ActionResult<IEnumerable<Produtos>>> PegarTodos(string usuarioID)
         {
-            var contexto = _context.Produtos.Include(p => p.usuario);
-            return View(await contexto.ToListAsync());
+            return await  _produtosRepositorio.PegarTodos().Where(p=> p.usuarioId == usuarioID).ToListAsync();
         }
 
-        // GET: Produtos/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var produtos = await _context.Produtos.Include(p => p.usuario).FirstOrDefaultAsync(m => m.produtoId == id);
-            if (produtos == null)
-            {
-                return NotFound();
-            }
-
-            return View(produtos);
-        }
-
-        // GET: Produtos/Create
-        public IActionResult Create()
-        {
-            ViewData["usuarioId"] = new SelectList(_context.Usuarios, "Id", "Id");
-            return View();
-        }
-
-        // POST: Produtos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("produtoId,nomedoProduto,valordeVenda,imagem,usuarioId")] Produtos produtos)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(produtos);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["usuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", produtos.usuarioId);
-            return View(produtos);
-        }
-
-        // GET: Produtos/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<Produtos>> GetProdutos(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var produtos = await _context.Produtos.FindAsync(id);
-            if (produtos == null)
+            var produto = await _produtosRepositorio.PegarPeloId(id);
+            if (produto == null)
             {
                 return NotFound();
             }
-            ViewData["usuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", produtos.usuarioId);
-            return View(produtos);
+
+            return produto;
         }
 
-        // POST: Produtos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("produtoId,nomedoProduto,valordeVenda,imagem,usuarioId")] Produtos produtos)
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> PutProdutos(int id, Produtos produtos)
         {
             if (id != produtos.produtoId)
             {
-                return NotFound();
+                return BadRequest();
             }
 
             if (ModelState.IsValid)
             {
-                try
+                await _produtosRepositorio.Atualizar(produtos);
+                return Ok(new
                 {
-                    _context.Update(produtos);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProdutosExists(produtos.produtoId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                    mensagem = $"Produto { produtos.nomedoProduto} atualizado com sucesso"
+                });
             }
-            ViewData["usuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", produtos.usuarioId);
-            return View(produtos);
+
+            return BadRequest(ModelState);
         }
 
-        // GET: Produtos/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [HttpPost]
+        public async Task<ActionResult<Produtos>> PostProduto(Produtos produtos)
         {
-            if (id == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                produtos.usuarioId = produtos.usuarioId;
+                //  produtos.usuarioId = "4e63ce87-133c-4d19-8538-bff4eb8a823d";
+                
+                await _produtosRepositorio.Inserir(produtos);
+                return Ok(new
+                {
+                    mensagem = $"Produto { produtos.nomedoProduto} cadastrado com sucesso"
+                });
             }
 
-            var produtos = await _context.Produtos
-                .Include(p => p.usuario)
-                .FirstOrDefaultAsync(m => m.produtoId == id);
+            return BadRequest(ModelState);
+        }
+
+
+            // GET: Produtos/Delete/5
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult<Produtos>> Delete(int id)
+        {
+
+            var produtos = await _produtosRepositorio.PegarPeloId(id);
             if (produtos == null)
             {
                 return NotFound();
             }
 
-            return View(produtos);
+            await _produtosRepositorio.Excluir(id);
+
+            return Ok(new
+            {
+                mensagem = $"Produto { produtos.nomedoProduto} excluido com sucesso"
+            });
         }
 
-        // POST: Produtos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+
+        [HttpGet("FiltrarProdutos/{nomedoProduto}")]
+        public async Task<ActionResult<IEnumerable<Produtos>>> FiltrarProdutos( string nomedoProduto)
         {
-            var produtos = await _context.Produtos.FindAsync(id);
-            _context.Produtos.Remove(produtos);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return await _produtosRepositorio.FiltrarProdutos(nomedoProduto).ToListAsync();
         }
 
-        private bool ProdutosExists(int id)
-        {
-            return _context.Produtos.Any(e => e.produtoId == id);
-        }
     }
 }

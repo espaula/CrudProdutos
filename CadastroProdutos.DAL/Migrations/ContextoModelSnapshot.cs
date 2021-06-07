@@ -54,16 +54,16 @@ namespace CadastroProdutos.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1fde77fb-d30c-475e-b521-10770cf9486d",
-                            ConcurrencyStamp = "11ae7e83-57e1-4de0-9f6f-e096b86c840d",
+                            Id = "05c9cd65-27c0-44a5-948b-c789e17fe296",
+                            ConcurrencyStamp = "c53219cd-5aab-48c1-aa96-8645e9338cb1",
                             Descricao = "Admin do sistema",
                             Name = "Administrador",
                             NormalizedName = "ADMINISTRADOR"
                         },
                         new
                         {
-                            Id = "702c77cb-9c8d-4add-a9af-9ccec8523199",
-                            ConcurrencyStamp = "e203d66c-c460-4e71-9912-c70f7686ce88",
+                            Id = "913a2919-7074-4ba1-bbd8-a93e54e7a8d9",
+                            ConcurrencyStamp = "3f027317-14fc-48f0-9a9f-2825ba5cc68b",
                             Descricao = "user do sistema",
                             Name = "usuario",
                             NormalizedName = "USUARIO"
@@ -78,11 +78,6 @@ namespace CadastroProdutos.DAL.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("CPF")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -131,15 +126,17 @@ namespace CadastroProdutos.DAL.Migrations
                     b.Property<byte[]>("foto")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<string>("login")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("profissao")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CPF")
-                        .IsUnique();
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");

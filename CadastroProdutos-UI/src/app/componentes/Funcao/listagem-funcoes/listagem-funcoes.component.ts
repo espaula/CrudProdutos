@@ -35,7 +35,6 @@ sort!: MatSort;
       this.funcoesService.PegarTodos().subscribe(resultado =>{
 
 
-        console.log(resultado);
         resultado.forEach(funcao =>{
           this.opcoesFuncoes.push(funcao.name);
         });

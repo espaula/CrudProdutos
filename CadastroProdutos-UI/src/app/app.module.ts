@@ -7,8 +7,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {HttpClientModule} from '@angular/common/http';
 import { ProdutosService } from './services/produtos.service';
-import { UsuarioService } from './services/usuario.service';
 import { FuncoesService } from './services/funcoes.service';
+import { UsuarioService } from './services/usuario.service';
+import { AuthGuardService } from './services/auth-guard.service';
+
 
 
 
@@ -110,7 +112,8 @@ export function PegarTokenUsuario(){
     HttpClientModule,
     ProdutosService,
     UsuarioService,
-    FuncoesService
+    FuncoesService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

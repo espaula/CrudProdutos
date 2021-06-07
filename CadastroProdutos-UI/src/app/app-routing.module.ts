@@ -10,6 +10,7 @@ import {ListagemProdutosComponent} from './componentes/Produtos/listagem-produto
 import { NovoProdutoComponent } from './componentes/Produtos/novo-produto/novo-produto.component';
 import { LoginUsuarioComponent } from './componentes/Usuario/Login/login-usuario/login-usuario.component';
 import { RegistrarUsuarioComponent } from './componentes/Usuario/Registro/registrar-usuario/registrar-usuario.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   {
     path:'',
     component: DashboardComponent,
+    canActivate:[AuthGuardService],
     children:[  {
       path: 'produtos/listagemProdutos', component: ListagemProdutosComponent
     },

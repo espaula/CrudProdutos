@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CadastroProdutos.BLL;
 using CadastroProdutos.DAL;
 using CadastroProdutos.DAL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CadastroProdutos.API.Controllers
 {
@@ -25,7 +26,8 @@ namespace CadastroProdutos.API.Controllers
 
         // GET: Produtos
        
-        //[HttpGet]
+      
+        [Authorize(Roles ="Administrador")]
         [HttpGet("PegarTodos/{usuarioID}")]
         public async Task<ActionResult<IEnumerable<Produtos>>> PegarTodos(string usuarioID)
         {
@@ -33,6 +35,7 @@ namespace CadastroProdutos.API.Controllers
         }
 
 
+        [Authorize(Roles = "Administrador")]
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<Produtos>> GetProdutos(int id)
@@ -51,6 +54,7 @@ namespace CadastroProdutos.API.Controllers
             return produto;
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPut]
         [Route("{id}")]
         public async Task<IActionResult> PutProdutos(int id, Produtos produtos)
@@ -91,7 +95,8 @@ namespace CadastroProdutos.API.Controllers
         }
 
 
-            // GET: Produtos/Delete/5
+        // GET: Produtos/Delete/5
+        [Authorize(Roles = "Administrador")]
         [HttpDelete]
         [Route("{id}")]
         public async Task<ActionResult<Produtos>> Delete(int id)
@@ -112,6 +117,7 @@ namespace CadastroProdutos.API.Controllers
         }
 
 
+        [Authorize(Roles = "Administrador")]
         [HttpGet("FiltrarProdutos/{nomedoProduto}")]
         public async Task<ActionResult<IEnumerable<Produtos>>> FiltrarProdutos( string nomedoProduto)
         {

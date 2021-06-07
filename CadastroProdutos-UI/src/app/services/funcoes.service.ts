@@ -36,7 +36,6 @@ export class FuncoesService {
     }
 
     AtualizarFuncao(funcaoId:string, funcao : Funcao):Observable<any>{
-      console.log(funcao);
        const apiUrl = `${this.url}/${funcaoId}`;
        return this.http.put<Funcao>(apiUrl, funcao, httpOptions);
     }

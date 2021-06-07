@@ -39,9 +39,6 @@ export class LoginUsuarioComponent implements OnInit {
 
     this.usuariosService.LogarUsuario(dadosLogin).subscribe(resultado =>{
 
-
-      console.log(resultado);
-      
       const LoginUsuario = resultado.loginUsuarioLogado;
       const usuarioId = resultado.usuarioId;
       const tokenUsuario = resultado.tokenUsuarioLogado;
@@ -49,8 +46,6 @@ export class LoginUsuarioComponent implements OnInit {
       localStorage.setItem("LoginUsuarioLogado", LoginUsuario);
       localStorage.setItem("UsuarioId",usuarioId);
       localStorage.setItem("TokenUsuarioLogado",tokenUsuario);
-
-      console.log(tokenUsuario);
 
       this.router.navigate(['/produtos/listagemProdutos'])
 

@@ -9,11 +9,13 @@ using CadastroProdutos.BLL.Models;
 using CadastroProdutos.DAL;
 using CadastroProdutos.DAL.Interfaces;
 using CadastroProdutos.API.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CadastroProdutos.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Administrador")]
     public class FuncoesController : Controller
     {
         private readonly IFuncaoRepositorio _funcoesRepositorio;

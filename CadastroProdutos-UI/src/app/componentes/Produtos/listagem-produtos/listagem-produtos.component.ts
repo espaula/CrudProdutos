@@ -44,14 +44,12 @@ sort!: MatSort;
 
     this.produtoService.PegarTodos().subscribe(resultado =>{
 
-      console.log(resultado);
 
       resultado.forEach(produto => {
         this.opcoesProdutos.push(produto.nomedoProduto);
 
       });
 
-      console.log(this.opcoesProdutos);
       this.produtos.data= resultado;
       this.produtos.paginator = this.paginator;
       this.produtos.sort = this.sort;
@@ -87,9 +85,6 @@ sort!: MatSort;
 
   FiltrarNomes(nome : string): string[]{
 
-
-    console.log(nome);
-
     if(nome.trim().length >= 4){
       this.produtoService
       .FiltrarProdutos(nome.toLowerCase())
@@ -105,8 +100,6 @@ sort!: MatSort;
         });
       }
     }
-
-    console.log(this.produtos.data);
 
     return this.opcoesProdutos.filter(produto=>produto.toLowerCase().includes(nome.toLowerCase()));
 

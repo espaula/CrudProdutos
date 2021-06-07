@@ -22,10 +22,8 @@ export class ProdutosService {
   PegarTodos(): Observable<Produtos[]>{
     
     var usuarioID = localStorage.getItem('UsuarioId');
-console.log(usuarioID);
 
     const ApiUrl = `${this.url}/PegarTodos/${usuarioID}`;
-    console.log(ApiUrl);
     return this.http.get<Produtos[]>(ApiUrl);
  }
 
@@ -36,8 +34,6 @@ console.log(usuarioID);
 
   NovoProduto(produto: Produtos): Observable<any>{
     
-
-    console.log(produto);
     return this.http.post<Produtos>(this.url, produto, httpOptions);
    // return this.http.post<Produtos>(this.url,
   }
@@ -45,7 +41,6 @@ console.log(usuarioID);
 
 AtualizarProdutos(produtoId: number, produto: Produtos): Observable<any>{
 
-  console.log("teste");
   const apiUrl = `${this.url}/${produtoId}`;
   return this.http.put<Produtos>(apiUrl, produto, httpOptions);
 
@@ -61,7 +56,6 @@ ExcluirProduto(produtoId: number): Observable<any>{
 FiltrarProdutos(nomedoProduto: string): Observable<Produtos[]>{
 
   const ApiUrl = `${this.url}/FiltrarProdutos/${nomedoProduto}`;
-  console.log(ApiUrl);
   return this.http.get<Produtos[]>(ApiUrl);
 }
 

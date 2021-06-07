@@ -45,8 +45,6 @@ export class NovoProdutoComponent implements OnInit {
 
     produto["usuarioId"] = localStorage.getItem('UsuarioId');
 
-    console.log(produto);
-    
     this.produtoService.NovoProduto(produto).subscribe(resultado=>{
 
       this.router.navigate(['/produtos/listagemProdutos']);

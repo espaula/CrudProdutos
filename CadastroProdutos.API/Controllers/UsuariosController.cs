@@ -141,7 +141,8 @@ namespace CadastroProdutos.API.Controllers
                 {
                     loginUsuarioLogado = retornousuario.usuario.login,
                     usuarioId = retornousuario.usuario.Id,
-                    tokenUsuarioLogado = token
+                    tokenUsuarioLogado = token,
+                    
 
                 });
             }

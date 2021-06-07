@@ -111,11 +111,12 @@ namespace CadastroProdutos.API.Services
                 client.Timeout = 3000;
                 var request = new RestRequest(_baseUrl, Method.POST);
 
-                //var p = Encoding.UTF8.GetBytes(loginViewModel.Login+":"+ loginViewModel.Senha);
-                //var basic = Convert.ToBase64String(p);
-                //request.AddHeader("Authorization", "Bearer "+ basic);
+                //request.AddHeader("Authorization", "Basic MTEyMzQ1Njc4OTA6MDk4NzY1NDMyMTE=");
 
-                //client.Authenticator = new HttpBasicAuthenticator(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("Security")["UserName"], new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("Security")["Password"]);
+                var p = Encoding.UTF8.GetBytes(loginViewModel.Login + "" + loginViewModel.Senha);
+                var basic = Convert.ToBase64String(p);
+                request.AddHeader("Authorization", "Basic " + basic);
+
 
                 request.RequestFormat = DataFormat.Json;
                 request.AddJsonBody(loginViewModel);

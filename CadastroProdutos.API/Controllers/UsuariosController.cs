@@ -81,12 +81,9 @@ namespace CadastroProdutos.API.Controllers
                 {
                     UserName = model.NomeUsuario,
                     PasswordHash = model.Senha,
-                    //CPF = model.CPF,
                     profissao = model.Profissao,
                     foto = model.Foto,
                     NormalizedUserName = model.NomeUsuario.ToUpper()
-                    
-                    //  Email = model.Email,
                 };
 
                 if(await _usuarioRepositorio.PegarQuantidadeUsuariosRegistrados() > 0)

@@ -25,10 +25,11 @@ namespace CadastroProdutos.API.Controllers
 
         // GET: Produtos
        
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Produtos>>> GetProdutos()
+        //[HttpGet]
+        [HttpGet("PegarTodos/{usuarioID}")]
+        public async Task<ActionResult<IEnumerable<Produtos>>> PegarTodos(string usuarioID)
         {
-            return await  _produtosRepositorio.PegarTodos().ToListAsync();
+            return await  _produtosRepositorio.PegarTodos().Where(p=> p.usuarioId == usuarioID).ToListAsync();
         }
 
 
@@ -76,7 +77,9 @@ namespace CadastroProdutos.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                produtos.usuarioId = "4e63ce87-133c-4d19-8538-bff4eb8a823d";
+                produtos.usuarioId = produtos.usuarioId;
+                //  produtos.usuarioId = "4e63ce87-133c-4d19-8538-bff4eb8a823d";
+                
                 await _produtosRepositorio.Inserir(produtos);
                 return Ok(new
                 {

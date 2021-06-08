@@ -47,7 +47,7 @@ sort!: MatSort;
     this.produtoService.PegarTodos().subscribe(resultado =>{
 
 
-      console.log(resultado);
+     // console.log(resultado);
 
       resultado.forEach(produto => {
         this.opcoesProdutos.push(produto.nomedoProduto);
@@ -85,7 +85,7 @@ sort!: MatSort;
                 }
           });
     
-    console.log("Exibir Foto");
+ //   console.log("Exibir Foto");
 }
 
 
@@ -174,10 +174,10 @@ export class DialogExibirImagemProdutosComponent implements OnInit{
 
   ngOnInit(): void {
     
-      console.log(this.dados);
+     // console.log(this.dados);
 
       this.produtoService.RetornarFotoProduto(this.dados.produtoId.toString()).subscribe(resultado =>{
-        console.log(resultado);
+       // console.log(resultado);
       this.urlFoto = this.sanitazer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'+resultado.imagem);
 
 

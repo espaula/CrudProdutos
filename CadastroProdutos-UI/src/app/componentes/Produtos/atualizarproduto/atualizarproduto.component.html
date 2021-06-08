@@ -31,7 +31,7 @@
                     <!-- <mat-form-field> -->
                         <div fxLayout="column">
                             <div class="divFoto">
-                                <img *ngIf="urlFoto" [src]="urlFoto" width="350" height="300" />
+                                <img id="foto" style="padding: 30px;" *ngIf="urlFoto" [src]="urlFoto" width="350" height="300" />
                             </div>
                             <div fxLayoutAlign="center end">
                                 <input hidden type="file" #fileInput name="foto" 

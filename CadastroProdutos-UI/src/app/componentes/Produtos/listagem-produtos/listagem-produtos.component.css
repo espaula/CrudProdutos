@@ -15,9 +15,10 @@ div.divFoto{
     border-width: 1px;
     border-color: #bdc3c7;
     border-style: solid;
-    height: 300px;
+    height: 400px;
     width: 100%;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .registroFormulario{

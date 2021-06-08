@@ -53,7 +53,7 @@ export class NovoProdutoComponent implements OnInit {
 
       produto.foto = resultado.foto;
 
-    console.log(resultado);
+    // console.log(resultado);
 
       this.produtoService.NovoProduto(produto).subscribe(resultado=>{
 

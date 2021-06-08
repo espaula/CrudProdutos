@@ -54,16 +54,16 @@ namespace CadastroProdutos.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "15999bb9-7c7d-44e6-98d6-9bd449c02c8d",
-                            ConcurrencyStamp = "8b88c2c5-cb63-4c14-952b-f78be13032d2",
+                            Id = "7135b15e-62e0-47ea-9dee-bb5f024e5bd0",
+                            ConcurrencyStamp = "7241b274-e676-4ba4-9bd8-4307583f0d95",
                             Descricao = "Admin do sistema",
                             Name = "Administrador",
                             NormalizedName = "ADMINISTRADOR"
                         },
                         new
                         {
-                            Id = "265f744d-f687-45cb-91f3-f10fe15e2cd3",
-                            ConcurrencyStamp = "5fdb4742-561d-4734-aa3d-14b546357118",
+                            Id = "89075cdb-ea98-4428-b4d6-dcf4cad342ff",
+                            ConcurrencyStamp = "2a692048-9fd2-49ea-82af-6d330e70430b",
                             Descricao = "user do sistema",
                             Name = "usuario",
                             NormalizedName = "USUARIO"
@@ -168,7 +168,7 @@ namespace CadastroProdutos.DAL.Migrations
 
                     b.HasIndex("usuarioId");
 
-                    b.ToTable("tb_produtos");
+                    b.ToTable("Produtos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

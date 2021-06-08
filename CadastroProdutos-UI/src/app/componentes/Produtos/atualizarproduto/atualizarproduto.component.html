@@ -35,14 +35,12 @@
                             </div>
                             <div fxLayoutAlign="center end">
                                 <input hidden type="file" #fileInput name="foto" 
-                                formControlName="foto" required (change)="SelecionarFoto($event)"/>
+                                formControlName="foto"  (change)="SelecionarFoto($event)"/>
                                 <br/><br/><br/><br/>
                                 <button type="button" mat-stroked-button color="primary" (click)="fileInput.click()">
                                     Escolha a foto do produto
                                 </button>
-                                <div *ngIf="propriedade.foto.touched && propriedade.foto.invalid">
-                                    <sup>*</sup> Escolha a foto do produto
-                                </div> 
+                                
                             </div>
     
                         </div>

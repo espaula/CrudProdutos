@@ -155,7 +155,7 @@ namespace CadastroProdutos.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tb_produtos",
+                name: "Produtos",
                 columns: table => new
                 {
                     produtoId = table.Column<int>(type: "int", nullable: false)
@@ -167,9 +167,9 @@ namespace CadastroProdutos.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tb_produtos", x => x.produtoId);
+                    table.PrimaryKey("PK_Produtos", x => x.produtoId);
                     table.ForeignKey(
-                        name: "FK_tb_produtos_Usuarios_usuarioId",
+                        name: "FK_Produtos_Usuarios_usuarioId",
                         column: x => x.usuarioId,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
@@ -179,12 +179,12 @@ namespace CadastroProdutos.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Funcoes",
                 columns: new[] { "Id", "ConcurrencyStamp", "Descricao", "Name", "NormalizedName" },
-                values: new object[] { "15999bb9-7c7d-44e6-98d6-9bd449c02c8d", "8b88c2c5-cb63-4c14-952b-f78be13032d2", "Admin do sistema", "Administrador", "ADMINISTRADOR" });
+                values: new object[] { "7135b15e-62e0-47ea-9dee-bb5f024e5bd0", "7241b274-e676-4ba4-9bd8-4307583f0d95", "Admin do sistema", "Administrador", "ADMINISTRADOR" });
 
             migrationBuilder.InsertData(
                 table: "Funcoes",
                 columns: new[] { "Id", "ConcurrencyStamp", "Descricao", "Name", "NormalizedName" },
-                values: new object[] { "265f744d-f687-45cb-91f3-f10fe15e2cd3", "5fdb4742-561d-4734-aa3d-14b546357118", "user do sistema", "usuario", "USUARIO" });
+                values: new object[] { "89075cdb-ea98-4428-b4d6-dcf4cad342ff", "2a692048-9fd2-49ea-82af-6d330e70430b", "user do sistema", "usuario", "USUARIO" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -214,8 +214,8 @@ namespace CadastroProdutos.DAL.Migrations
                 filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_produtos_usuarioId",
-                table: "tb_produtos",
+                name: "IX_Produtos_usuarioId",
+                table: "Produtos",
                 column: "usuarioId");
 
             migrationBuilder.CreateIndex(
@@ -249,7 +249,7 @@ namespace CadastroProdutos.DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "tb_produtos");
+                name: "Produtos");
 
             migrationBuilder.DropTable(
                 name: "Funcoes");

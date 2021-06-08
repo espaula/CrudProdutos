@@ -49,58 +49,7 @@ namespace CadastroProdutos.API.Controllers
 
        
 
-        [HttpPost("RegistrarUsuario")]
-        public async Task<ActionResult> RegistrarUsuario(RegistroViewModel model)
-        {
-
-            if (ModelState.IsValid)
-            {
-
-                IdentityResult usuarioCriado;
-                string funcaoUsuario;
-
-                Usuario usuario = new Usuario
-                {
-                    UserName = model.NomeUsuario,
-                    PasswordHash = model.Senha,
-                   // profissao = model.Profissao,
-                    //foto = model.Foto,
-                    NormalizedUserName = model.NomeUsuario.ToUpper()
-                };
-
-                if(await _usuarioRepositorio.PegarQuantidadeUsuariosRegistrados() > 0)
-                {
-                    funcaoUsuario = "Usuario";
-                }
-                else
-                {
-                    funcaoUsuario = "Administrador";
-                }
-
-                usuarioCriado = await _usuarioRepositorio.CriarUsuario(usuario, model.Senha);
-
-                if (usuarioCriado.Succeeded)
-                {
-                    await _usuarioRepositorio.IncluirUsuarioEmFuncao(usuario, funcaoUsuario);
-                    await _usuarioRepositorio.LogarUsuario(usuario, false);
-
-                    return Ok(new
-                    {
-                        usuarioId = usuario.Id,
-                        loginUsuario = usuario.login
-                    });
-                }
-                else
-                {
-                   return BadRequest(model);
-                }
-            }
-            else
-            {
-               return BadRequest(model);
-            }
-        }
-
+     
         [HttpPost("LogarUsuario")]
         public async Task<ActionResult> LogarUsuario(LoginViewModel model)
         {

@@ -21,7 +21,7 @@ namespace CadastroProdutos.DAL.Mapeamentos
             builder.HasOne(g => g.usuario).WithMany(g => g.produtos).HasForeignKey(g => g.usuarioId).IsRequired();
 
 
-            builder.ToTable("tb_produtos");
+            builder.ToTable("Produtos");
 
 
         }

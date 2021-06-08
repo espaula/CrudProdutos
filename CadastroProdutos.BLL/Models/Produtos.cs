@@ -14,7 +14,6 @@ namespace CadastroProdutos.BLL
         public int produtoId { get; set; }
         public string nomedoProduto { get; set; }
         public double valordeVenda { get; set; }
-      //  public string imagem { get; set; }
         public byte[] foto { get; set; }
 
         public string usuarioId { get; set; }

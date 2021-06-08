@@ -5,6 +5,7 @@ export class Produtos {
     nomedoProduto!: string; 
     valordeVenda!:number; 
     imagem!:string; 
+    foto!:File;
     usuarioId!:number; 
     usuario!: DadosRegistro
 }

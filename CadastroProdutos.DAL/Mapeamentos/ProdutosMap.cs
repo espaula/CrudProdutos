@@ -15,7 +15,7 @@ namespace CadastroProdutos.DAL.Mapeamentos
         {
             builder.HasKey(p => p.produtoId);
             builder.Property(p => p.nomedoProduto).IsRequired().HasMaxLength(50);
-            builder.Property(p => p.imagem).IsRequired().HasMaxLength(15);
+            builder.Property(p => p.foto).IsRequired();
             builder.Property(p => p.valordeVenda).IsRequired();
 
             builder.HasOne(g => g.usuario).WithMany(g => g.produtos).HasForeignKey(g => g.usuarioId).IsRequired();

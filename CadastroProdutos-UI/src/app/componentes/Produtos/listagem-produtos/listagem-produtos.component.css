@@ -7,6 +7,28 @@
     padding-top: 50px;
 }
 
+.divFormulario{
+    width: 900px;
+}
+
+div.divFoto{
+    border-width: 1px;
+    border-color: #bdc3c7;
+    border-style: solid;
+    height: 300px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.registroFormulario{
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.formulario{
+    padding-top: 50px;
+} 
+
 .divCard{
     padding:50px;
     width: 600px;

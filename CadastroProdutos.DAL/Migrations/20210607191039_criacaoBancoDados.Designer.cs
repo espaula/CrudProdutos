@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CadastroProdutos.DAL.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20210606174756_criacaoBancoDados")]
+    [Migration("20210607191039_criacaoBancoDados")]
     partial class criacaoBancoDados
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,16 +56,16 @@ namespace CadastroProdutos.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "05c9cd65-27c0-44a5-948b-c789e17fe296",
-                            ConcurrencyStamp = "c53219cd-5aab-48c1-aa96-8645e9338cb1",
+                            Id = "15999bb9-7c7d-44e6-98d6-9bd449c02c8d",
+                            ConcurrencyStamp = "8b88c2c5-cb63-4c14-952b-f78be13032d2",
                             Descricao = "Admin do sistema",
                             Name = "Administrador",
                             NormalizedName = "ADMINISTRADOR"
                         },
                         new
                         {
-                            Id = "913a2919-7074-4ba1-bbd8-a93e54e7a8d9",
-                            ConcurrencyStamp = "3f027317-14fc-48f0-9a9f-2825ba5cc68b",
+                            Id = "265f744d-f687-45cb-91f3-f10fe15e2cd3",
+                            ConcurrencyStamp = "5fdb4742-561d-4734-aa3d-14b546357118",
                             Descricao = "user do sistema",
                             Name = "usuario",
                             NormalizedName = "USUARIO"
@@ -125,18 +125,10 @@ namespace CadastroProdutos.DAL.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<byte[]>("foto")
-                        .HasColumnType("varbinary(max)");
-
                     b.Property<string>("login")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("profissao")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
@@ -158,10 +150,9 @@ namespace CadastroProdutos.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("imagem")
+                    b.Property<byte[]>("foto")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("nomedoProduto")
                         .IsRequired()

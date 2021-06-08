@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+
+// import {} from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,7 +16,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 
 
 
-import { ListagemProdutosComponent, DialogExclusaoProdutosComponent  } from './componentes/Produtos/listagem-produtos/listagem-produtos.component';
+import { ListagemProdutosComponent, DialogExclusaoProdutosComponent, DialogExibirImagemProdutosComponent  } from './componentes/Produtos/listagem-produtos/listagem-produtos.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatAutocompleteModule}  from '@angular/material/autocomplete';
@@ -37,11 +39,13 @@ import {MatListModule} from '@angular/material/list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
 
+
 import {JwtModule} from '@auth0/angular-jwt';
 
 import { NovoProdutoComponent } from './componentes/Produtos/novo-produto/novo-produto.component';
 import { AtualizarprodutoComponent } from './componentes/Produtos/atualizarproduto/atualizarproduto.component';
 import { ListagemFuncoesComponent,DialogExclusaoFuncoesComponent } from './componentes/Funcao/listagem-funcoes/listagem-funcoes.component';
+
 import { NovaFuncaoComponent } from './componentes/Funcao/nova-funcao/nova-funcao.component';
 import { AtualizarFuncaoComponent } from './componentes/Funcao/atualizar-funcao/atualizar-funcao.component';
 import { RegistrarUsuarioComponent } from './componentes/Usuario/Registro/registrar-usuario/registrar-usuario.component';
@@ -66,16 +70,19 @@ export function PegarTokenUsuario(){
     AtualizarprodutoComponent,
     DialogExclusaoProdutosComponent,
     ListagemFuncoesComponent,
+    DialogExibirImagemProdutosComponent,
     NovaFuncaoComponent,
     AtualizarFuncaoComponent,
     DialogExclusaoFuncoesComponent,
     RegistrarUsuarioComponent,
     LoginUsuarioComponent,
     DashboardComponent,
-    HeaderComponent
+    HeaderComponent,
+    
   ],
   imports: [
     BrowserModule,
+    
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,

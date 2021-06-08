@@ -17,13 +17,10 @@ namespace CadastroProdutos.API.Controllers.Validacoes
                .MinimumLength(5).WithMessage("Use mais caracteres no nome do produto")
                .MaximumLength(50).WithMessage("Use menos caracteres no nome do produto");
 
-            RuleFor(p => p.imagem)
-               .NotNull().WithMessage("Preencha o imagem")
-               .NotEmpty().WithMessage("Preencha o imagem")
-               .MinimumLength(1).WithMessage("Use mais caracteres")
-               .MaximumLength(15).WithMessage("Use menos caracteres");
-
-
+            RuleFor(p => p.foto)
+               .NotNull().WithMessage("Selecione um imagem")
+               .NotEmpty().WithMessage("Preencha o imagem");
+              
             RuleFor(x => x.valordeVenda)
                 .NotNull()
                 .WithMessage("Preencha o valor da venda")

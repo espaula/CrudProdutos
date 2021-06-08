@@ -24,7 +24,30 @@
                     </mat-card-content>
                 </mat-card>
             </div>
+
+
             <mat-card-content>
+                <div>
+                    <!-- <mat-form-field> -->
+                        <div fxLayout="column">
+                            <div class="divFoto">
+                                <img *ngIf="urlFoto" [src]="urlFoto" width="350" height="300" />
+                            </div>
+                            <div fxLayoutAlign="center end">
+                                <input hidden type="file" #fileInput name="foto" 
+                                formControlName="foto" required (change)="SelecionarFoto($event)"/>
+                                <br/><br/><br/><br/>
+                                <button type="button" mat-stroked-button color="primary" (click)="fileInput.click()">
+                                    Escolha a foto do produto
+                                </button>
+                                <div *ngIf="propriedade.foto.touched && propriedade.foto.invalid">
+                                    <sup>*</sup> Escolha a foto do produto
+                                </div> 
+                            </div>
+    
+                        </div>
+                </div>
+
                 <div>
                     <mat-form-field>
                         <mat-label>Nome Produto</mat-label>
@@ -48,18 +71,9 @@
                    </mat-error>
               
                 </div>
-               
-                <div>
-                    <mat-form-field>
-                        <mat-label>Imagem</mat-label>
-                        <input type="text" matInput formControlName="imagem" 
-                        placeholder="Digite a imagem do produto" required>
-                    </mat-form-field>
-                    <mat-error *ngIf="propriedade.imagem.touched && propriedade.imagem.invalid">
-                        <sup>*</sup>Digite o nome da imagem
-                   </mat-error>
-                </div>
+              
             </mat-card-content>
+            
             <mat-divider></mat-divider>
     
             <mat-card-actions>

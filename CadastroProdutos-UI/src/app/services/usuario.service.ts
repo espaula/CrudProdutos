@@ -20,11 +20,7 @@ export class UsuarioService {
   url:string = "api/Usuarios";
   constructor(private http: HttpClient) { }
 
-  SalvarFoto(formData: any): Observable<any>{
-
-    const apiUrl = `${this.url}/SalvarFoto`
-    return this.http.post<any>(apiUrl, formData);
-  }
+ 
 
   RegistrarUsuario(dadosRegistro: DadosRegistro): Observable<any>{
     const apiUrl = `${this.url}/RegistrarUsuario`;

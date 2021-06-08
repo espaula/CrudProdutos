@@ -27,9 +27,7 @@ namespace CadastroProdutos.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    profissao = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     login = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    foto = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -164,7 +162,7 @@ namespace CadastroProdutos.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     nomedoProduto = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     valordeVenda = table.Column<double>(type: "float", nullable: false),
-                    imagem = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    foto = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     usuarioId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -181,12 +179,12 @@ namespace CadastroProdutos.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Funcoes",
                 columns: new[] { "Id", "ConcurrencyStamp", "Descricao", "Name", "NormalizedName" },
-                values: new object[] { "05c9cd65-27c0-44a5-948b-c789e17fe296", "c53219cd-5aab-48c1-aa96-8645e9338cb1", "Admin do sistema", "Administrador", "ADMINISTRADOR" });
+                values: new object[] { "15999bb9-7c7d-44e6-98d6-9bd449c02c8d", "8b88c2c5-cb63-4c14-952b-f78be13032d2", "Admin do sistema", "Administrador", "ADMINISTRADOR" });
 
             migrationBuilder.InsertData(
                 table: "Funcoes",
                 columns: new[] { "Id", "ConcurrencyStamp", "Descricao", "Name", "NormalizedName" },
-                values: new object[] { "913a2919-7074-4ba1-bbd8-a93e54e7a8d9", "3f027317-14fc-48f0-9a9f-2825ba5cc68b", "user do sistema", "usuario", "USUARIO" });
+                values: new object[] { "265f744d-f687-45cb-91f3-f10fe15e2cd3", "5fdb4742-561d-4734-aa3d-14b546357118", "user do sistema", "usuario", "USUARIO" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -33,11 +33,11 @@ namespace CadastroProdutos.API.Services
             try
             {
 
+                RetornoApiSM retornoApiSM = AutenticaApi(model);
                 RetornoLogarUsuario retornoLogarUsuario = new RetornoLogarUsuario();
-               // Usuario usuario = new Usuario();
 
-                // if (rt.success) //AUTENTICOU NA API SM
-                if (true) //AUTENTICOU NA API SM
+                //if (true) //AUTENTICOU NA API SM
+                if (retornoApiSM.success) //AUTENTICOU NA API SM
                 {
 
                     retornoLogarUsuario.usuario = await _usuarioRepositorio.VerificaSeExiste(model.Login);
@@ -49,30 +49,22 @@ namespace CadastroProdutos.API.Services
 
                         Usuario usuarioNovo = new Usuario
                         {
-                            UserName = ("Nome" +model.Login).ToString(),
+                            UserName = (model.Login).ToString(),
                             PasswordHash = model.Senha,
                             login = model.Login,
-                            profissao = "profissão",
-                            foto = null,
-                            NormalizedUserName = ("Nome - " + model.Login).ToUpper()
+                            //foto = null,
+                            NormalizedUserName =(model.Login).ToUpper()
                         };
 
-                        //if (await _usuarioRepositorio.PegarQuantidadeUsuariosRegistrados() > 0)
-                        //{
-                        //    funcaoUsuario = "Usuario";
-                        //}
-                        //else
-                        //{
+                        
                         funcaoUsuario = "Administrador";
-                        // }
+                       
 
                         usuarioCriado = await _usuarioRepositorio.CriarUsuario(usuarioNovo, model.Senha);
 
                         if (usuarioCriado.Succeeded)
                         {
                             await _usuarioRepositorio.IncluirUsuarioEmFuncao(usuarioNovo, funcaoUsuario);
-
-                            //var token = TokenService.GerarToken(usuarioNovo, funcaoUsuario);
                             await _usuarioRepositorio.LogarUsuario(usuarioNovo, false);
                             retornoLogarUsuario.usuario = usuarioNovo;
                         }
@@ -86,7 +78,11 @@ namespace CadastroProdutos.API.Services
                     }
 
                 }
+                else
+                {
+                    retornoLogarUsuario.erro = retornoApiSM.error;
 
+                }
                 return retornoLogarUsuario;
             }
             catch (Exception ex)
@@ -111,12 +107,7 @@ namespace CadastroProdutos.API.Services
                 client.Timeout = 3000;
                 var request = new RestRequest(_baseUrl, Method.POST);
 
-                //request.AddHeader("Authorization", "Basic MTEyMzQ1Njc4OTA6MDk4NzY1NDMyMTE=");
-
-                var p = Encoding.UTF8.GetBytes(loginViewModel.Login + "" + loginViewModel.Senha);
-                var basic = Convert.ToBase64String(p);
-                request.AddHeader("Authorization", "Basic " + basic);
-
+                request.AddHeader("Authorization", "Basic " + Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes($"{loginViewModel.Login}:{loginViewModel.Senha}")));
 
                 request.RequestFormat = DataFormat.Json;
                 request.AddJsonBody(loginViewModel);

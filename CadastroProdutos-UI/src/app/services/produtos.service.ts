@@ -53,10 +53,23 @@ ExcluirProduto(produtoId: number): Observable<any>{
 
 }
 
+SalvarFoto(formData: any): Observable<any>{
+  const apiUrl = `${this.url}/SalvarFoto`
+  console.log(apiUrl);
+  return this.http.post<any>(apiUrl, formData);
+}
+
 FiltrarProdutos(nomedoProduto: string): Observable<Produtos[]>{
 
   const ApiUrl = `${this.url}/FiltrarProdutos/${nomedoProduto}`;
   return this.http.get<Produtos[]>(ApiUrl);
+}
+
+RetornarFotoProduto(id: string): Observable<any>{
+  
+  const apiUrl = `${this.url}/RetornarFotoProduto/${id}`;
+  return this.http.get<any>(apiUrl);
+
 }
 
 }

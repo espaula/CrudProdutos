@@ -4,24 +4,6 @@
         <h1>Faça o Login</h1>
         <mat-divider></mat-divider>
 
-        <div class="cardErros" *ngIf="erros.length > 0">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title> Algo deu Errado :(</mat-card-title>
-                </mat-card-header>
-                <mat-divider></mat-divider>
-
-                <mat-card-content>
-                        <div class="divErros">
-                            <h4 *ngFor="let erro of erros" class="textoErros">
-                                    {{erro}}
-                            </h4>
-                        </div>
-                </mat-card-content>
-            </mat-card>
-        </div>
-
-
         <form [formGroup]="formulario" class="formulario" (ngSubmit)="EnviarFormulario()">
             <div class="cardErros" *ngIf="erros.length > 0">
                 <mat-card>

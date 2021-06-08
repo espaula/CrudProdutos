@@ -39,21 +39,29 @@
     <table *ngIf="produtos" mat-table matSort [dataSource]='produtos' class="mat-elevation-z8 tabela">
 
         <ng-container matColumnDef='produtoId'>
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Id produto </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
                 <td mat-cell *matCellDef="let produto"> {{ produto.produtoId }}</td> 
         </ng-container> 
         <ng-container matColumnDef='nomedoProduto'>
-             <th mat-header-cell *matHeaderCellDef mat-sort-header> nomedoProduto </th>
+             <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome do produto </th>
              <td mat-cell *matCellDef="let produto"> {{ produto.nomedoProduto }}</td> 
         </ng-container> 
         <ng-container matColumnDef="valordeVenda">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> valordeVenda </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor de venda </th>
             <td mat-cell *matCellDef="let produto"> {{produto.valordeVenda}} </td>
           </ng-container>
 
-        <ng-container matColumnDef='imagem'>
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> imagem </th>
-            <td mat-cell *matCellDef="let produto"> <mat-icon> {{ produto.imagem }}</mat-icon></td> 
+        <ng-container matColumnDef='foto'>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Imagem </th>
+            <td mat-cell *matCellDef="let produto"> 
+                <!-- <mat-icon> {{ produto.imagem }}
+
+
+                </mat-icon> -->
+                <button mat-mini-fab color="accent" (click)="AbrirFoto(produto.produtoId)"><mat-icon>image</mat-icon> </button>
+                <!-- <button mat-mini-fab color="accent" (click)="AbrirFoto()"><mat-icon>image</mat-icon> </button> -->
+            
+            </td> 
        </ng-container>
 
        <ng-container matColumnDef="acoes">

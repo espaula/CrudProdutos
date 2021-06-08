@@ -14,7 +14,7 @@ namespace CadastroProdutos.DAL.Mapeamentos
             builder.Property(u => u.Id).ValueGeneratedOnAdd();
             //builder.Property(u => u.CPF).IsRequired().HasMaxLength(20);
             //builder.HasIndex(u => u.CPF).IsUnique();
-            builder.Property(u => u.profissao).IsRequired().HasMaxLength(30);
+            //builder.Property(u => u.profissao).IsRequired().HasMaxLength(30);
             builder.Property(u => u.login).IsRequired().HasMaxLength(50);
 
 

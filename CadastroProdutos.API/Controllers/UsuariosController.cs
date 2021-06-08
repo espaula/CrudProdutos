@@ -47,25 +47,7 @@ namespace CadastroProdutos.API.Controllers
             return usuario;
         }
 
-        [HttpPost("SalvarFoto")]
-        public async Task<IActionResult> SalvarFoto()
-        {
-            var foto = Request.Form.Files[0];
-            byte[] b;
-
-            using (var openReadStream = foto.OpenReadStream())
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    await openReadStream.CopyToAsync(memoryStream);
-                    b = memoryStream.ToArray();
-                }
-            }
-            return Ok(new
-            {
-                foto = b
-            });
-        }
+       
 
         [HttpPost("RegistrarUsuario")]
         public async Task<ActionResult> RegistrarUsuario(RegistroViewModel model)
@@ -81,8 +63,8 @@ namespace CadastroProdutos.API.Controllers
                 {
                     UserName = model.NomeUsuario,
                     PasswordHash = model.Senha,
-                    profissao = model.Profissao,
-                    foto = model.Foto,
+                   // profissao = model.Profissao,
+                    //foto = model.Foto,
                     NormalizedUserName = model.NomeUsuario.ToUpper()
                 };
 
@@ -127,6 +109,7 @@ namespace CadastroProdutos.API.Controllers
 
 
             AutenticaSMSerevice autenticaSMSerevice = new AutenticaSMSerevice(_usuarioRepositorio);
+
             RetornoLogarUsuario retornousuario =  await autenticaSMSerevice.LogarUsuario(model);
 
 
@@ -148,7 +131,7 @@ namespace CadastroProdutos.API.Controllers
             }
             else
             {
-                return BadRequest(retornousuario.erro);
+                return NotFound(retornousuario.erro);
 
             }
 

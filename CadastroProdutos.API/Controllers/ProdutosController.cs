@@ -9,6 +9,7 @@ using CadastroProdutos.BLL;
 using CadastroProdutos.DAL;
 using CadastroProdutos.DAL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
 
 namespace CadastroProdutos.API.Controllers
 {
@@ -55,6 +56,27 @@ namespace CadastroProdutos.API.Controllers
         }
 
         [Authorize(Roles = "Administrador")]
+        [HttpPost("SalvarFoto")]
+        public async Task<IActionResult> SalvarFoto()
+        {
+            var foto = Request.Form.Files[0];
+            byte[] b;
+
+            using (var openReadStream = foto.OpenReadStream())
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await openReadStream.CopyToAsync(memoryStream);
+                    b = memoryStream.ToArray();
+                }
+            }
+            return Ok(new
+            {
+                foto = b
+            });
+        }
+
+        [Authorize(Roles = "Administrador")]
         [HttpPut]
         [Route("{id}")]
         public async Task<IActionResult> PutProdutos(int id, Produtos produtos)
@@ -76,13 +98,13 @@ namespace CadastroProdutos.API.Controllers
             return BadRequest(ModelState);
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public async Task<ActionResult<Produtos>> PostProduto(Produtos produtos)
         {
             if (ModelState.IsValid)
             {
-                produtos.usuarioId = produtos.usuarioId;
-                //  produtos.usuarioId = "4e63ce87-133c-4d19-8538-bff4eb8a823d";
+                //produtos.usuarioId = produtos.usuarioId;
                 
                 await _produtosRepositorio.Inserir(produtos);
                 return Ok(new
@@ -122,6 +144,15 @@ namespace CadastroProdutos.API.Controllers
         public async Task<ActionResult<IEnumerable<Produtos>>> FiltrarProdutos( string nomedoProduto)
         {
             return await _produtosRepositorio.FiltrarProdutos(nomedoProduto).ToListAsync();
+        }
+
+        [HttpGet("RetornarFotoProduto/{produtoId}")]
+        public async Task<dynamic> RetornarFotoProduto(string produtoId)
+        {
+
+            Produtos produto = await _produtosRepositorio.PegarPeloId(Convert.ToInt32(produtoId));
+            return new { imagem = produto.foto };
+
         }
 
     }
